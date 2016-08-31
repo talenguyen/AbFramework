@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ABFrameworkSample</string>
+    <string name="home">Home</string>
+    <string name="on_boarding">OnBoarding</string>
+</resources>
