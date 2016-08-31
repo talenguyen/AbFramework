@@ -12,14 +12,14 @@ import java.util.Map;
 /**
  * Created by Giang Nguyen on 8/31/16.
  */
-public class ABFrameworkApp extends Application {
+public class AbFrameworkApp extends Application {
 
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private AbFramework abFramework;
     private Navigator navigator;
 
-    public static ABFrameworkApp get(Context context) {
-        return (ABFrameworkApp) context.getApplicationContext();
+    public static AbFrameworkApp get(Context context) {
+        return (AbFrameworkApp) context.getApplicationContext();
     }
 
     @Override
@@ -45,6 +45,10 @@ public class ABFrameworkApp extends Application {
 
     public AbFramework getAbFramework() {
         return abFramework;
+    }
+
+    public Navigator getNavigator() {
+        return navigator;
     }
 
     private FirebaseRemoteConfig setupRemoteConfig() {
@@ -73,7 +77,4 @@ public class ABFrameworkApp extends Application {
         return defaultConfigMap;
     }
 
-    public Navigator getNavigator() {
-        return navigator;
-    }
 }

@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
@@ -30,25 +28,12 @@ public class AbFramework {
     public void get(final String key, Callback callback, long timeout) {
         callbackWeakReference = new WeakReference<>(callback);
         firebaseRemoteConfig.fetch()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "onSuccess: ");
-                        fallbackHandler.removeCallbacksAndMessages(null);
-                        firebaseRemoteConfig.activateFetched();
-                        deliverResult(key);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                })
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Log.d(TAG, "onComplete: ");
+                        fallbackHandler.removeCallbacksAndMessages(null);
+                        firebaseRemoteConfig.activateFetched();
+                        deliverResult(key);
                     }
                 });
 

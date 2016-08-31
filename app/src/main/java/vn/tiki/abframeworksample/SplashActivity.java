@@ -45,6 +45,7 @@ public class SplashActivity extends BaseActivity {
                     public void onReceive(String value) {
                         Log.d(TAG, "onReceive: " + value);
                         getNavigator().open(SplashActivity.this, value);
+                        finish();
                     }
                 }, 5000);
     }

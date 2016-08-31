@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    public ABFrameworkApp getApp() {
-        return ABFrameworkApp.get(this);
+    public AbFrameworkApp getApp() {
+        return AbFrameworkApp.get(this);
     }
 
     protected AbFramework getAbFramework() {
