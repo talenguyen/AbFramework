@@ -2,7 +2,13 @@ package vn.tiki.abframeworksample;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -14,6 +20,7 @@ import java.util.Map;
  */
 public class AbFrameworkApp extends Application {
 
+    private static final String TAG = "AbFrameworkApp";
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private AbFramework abFramework;
     private Navigator navigator;
@@ -31,6 +38,28 @@ public class AbFrameworkApp extends Application {
         setupAbFramework();
 
         setupNavigator();
+
+        firebaseRemoteConfig.fetch()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        final String value = firebaseRemoteConfig.getString("after_splash");
+                        Log.d(TAG, "onComplete: " + value);
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        final String value = firebaseRemoteConfig.getString("after_splash");
+                        Log.d(TAG, "onSuccess: " + value);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: ", e);
+                    }
+                });
     }
 
     private void setupNavigator() {
